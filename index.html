@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Verdadera PBA</title>
+<meta name="description" content="Mapa, tasas y gasto de los 135 municipios bonaerenses, con datos oficiales de cada municipio.">
+<meta property="og:title" content="La Verdadera PBA">
+<meta property="og:description" content="Mapa, tasas y gasto de los 135 municipios bonaerenses, con datos oficiales de cada municipio.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#170C22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Landing menu of "La Verdadera PBA": three cards, one per page (each page lives in its own folder next to this file) */
+:root {
+  --bg: #170C22; --panel: #241634; --panel-2: #2E1C42; --line: rgba(155,111,217,.28);
+  --fg: #F2ECF8; --muted: #B3A6C6; --dim: #8B7DA0; --gold: #E8B73F; --acc: #B387F0; --verde: #4FC9B0; --azul: #6FA8FF;
+  --f-display: "Montserrat", "Segoe UI", Arial, sans-serif; --f-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 400 17px/1.5 var(--f-body);
+  background-image: radial-gradient(ellipse 80% 50% at 100% 0%, rgba(116,59,188,.35), transparent 70%), radial-gradient(ellipse 60% 40% at 0% 100%, rgba(232,183,63,.10), transparent 70%); }
+main { max-width: 1080px; margin: 0 auto; padding: max(40px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 32px max(16px, env(safe-area-inset-left)); display: grid; gap: 32px; }
+header { display: grid; gap: 10px; max-width: 680px; }
+.marca { font: 800 13px var(--f-display); letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0; }
+h1 { font: 900 clamp(32px, 6.4vw, 56px)/1.05 var(--f-display); margin: 0; letter-spacing: -.5px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--acc); }
+.bajada { margin: 0; color: var(--muted); font-size: clamp(17px, 2.2vw, 19px); text-wrap: pretty; }
+.menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.op { --c: var(--acc); position: relative; display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 22px 20px 20px; border-radius: 18px;
+  background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--c); color: inherit; text-decoration: none;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.op:hover { transform: translateY(-3px); background: var(--panel-2); border-color: var(--c); }
+.op:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.op .ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
+.op .ico svg { width: 28px; height: 28px; }
+.op h2 { margin: 0; font: 900 clamp(21px, 2.4vw, 24px)/1.15 var(--f-display); }
+.op h2 small { display: block; margin-bottom: 4px; font: 800 12px var(--f-display); letter-spacing: 1.2px; text-transform: uppercase; color: var(--c); }
+.op p { margin: 0; color: var(--muted); font-size: 16.5px; }
+.op .ir { justify-self: start; margin-top: 4px; font: 800 14px var(--f-display); color: var(--bg); background: var(--c); padding: 10px 18px; border-radius: 999px; }
+.op.mapa { --c: var(--verde); } .op.tasas { --c: var(--gold); } .op.gasto { --c: var(--acc); }
+footer { color: var(--dim); font-size: 14px; border-top: 1px solid var(--line); padding-top: 16px; }
+@media (max-width: 820px) {
+  main { padding-top: max(28px, env(safe-area-inset-top)); gap: 24px; }
+  .menu { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .op { grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: auto; column-gap: 14px; row-gap: 8px; padding: 18px 16px; }
+  .op .ico { grid-row: 1 / span 3; }
+  .op h2, .op p, .op .ir { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .op { transition: none; } .op:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="marca">La Verdadera PBA</p>
+    <h1>Lo que pasa en <em>tu municipio</em>, con datos</h1>
+    <p class="bajada">Elegí qué querés ver de los 135 municipios bonaerenses.</p>
+  </header>
+
+  <nav class="menu" aria-label="Páginas">
+    <a class="op mapa" href="mapa-municipios/index.html">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+      <h2><small>Mapa</small>Tu municipio en el mapa</h2>
+      <p>Tocá tu municipio en el mapa y mirá su ficha: transparencia, ejecución del presupuesto y resultado fiscal y financiero.</p>
+      <span class="ir">Ver el mapa →</span>
+    </a>
+    <a class="op tasas" href="comparador-tasas/index.html">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9.5 14.5l5-5"/><circle cx="9.5" cy="9.5" r=".8" fill="currentColor"/><circle cx="14.5" cy="14.5" r=".8" fill="currentColor"/></svg></span>
+      <h2><small>Comparador de tasas</small>¿Cuánto te cobra tu municipio?</h2>
+      <p>Compará las tasas que cobra cada municipio según sus ordenanzas fiscales e impositivas, y mirá el ranking.</p>
+      <span class="ir">Comparar tasas →</span>
+    </a>
+    <a class="op gasto" href="gasto-municipal/index.html">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg></span>
+      <h2><small>Gasto municipal</small>¿En qué gasta tu municipio?</h2>
+      <p>De cada $100 que gastó cada municipio en 2025, cuánto fue a salud, educación, seguridad y obra pública.</p>
+      <span class="ir">Ver el gasto →</span>
+    </a>
+  </nav>
+
+  <footer>Fuentes: RAFAM 2025 de cada municipio, ordenanzas fiscales e impositivas municipales y bases propias. Elaboración propia.</footer>
+</main>
+</body>
+</html>
